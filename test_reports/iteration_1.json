@@ -1,0 +1,43 @@
+{
+  "summary": "Smoke-tested CogniSpike marketing homepage on desktop (1365x768) and mobile (390x844). All required sections and data-testids render correctly, all Cal.com CTAs point to the correct URL with target=_blank, FAQ accordion behaves as specified (item 0 open by default, exclusive-open after interaction), stat counters render correct end values, hero #process anchor scroll works, no console errors, no horizontal overflow at either viewport. Two issues found: navbar background does NOT transition on scroll, and mobile drawer close state leaves visibility:visible (opacity 0 hides it visually).",
+  "tested_scope": ["frontend"],
+  "passed": [
+    "Homepage loads at / with no console errors",
+    "All 10 sections render with correct data-testid (hero, problem, services, process, whyus, results, industries, cta-banner, faq, footer)",
+    "Nav CTA, hero CTA, cta-banner button, footer CTA all href=https://cal.com/ram-swaroop-singh-thakur-8uhev9/discovery-call with target=_blank",
+    "Hero 'See How It Works' has href=#process and scrolls to process section (hash updates, scrollY=3762, section top=0)",
+    "6 pain cards (pain-card-0..5) present",
+    "4 service rows (service-row-0..3) present",
+    "4 process steps (process-step-0..3) present",
+    "6 whyus cards (whyus-card-0..5) present",
+    "4 stat counters with correct end values: 10,000+ / 3x / 50+ / <3 wks",
+    "Testimonials carousel with 6 testimonial cards",
+    "9 industry tiles (industry-tile-0..8) present",
+    "6 FAQ items; item 0 aria-expanded=true initially; clicking faq-toggle-1 closes 0 and opens 1 (exclusive)",
+    "Footer: 6 footer links, 4 social icons (linkedin/twitter/youtube/instagram), copyright present",
+    "Mobile (390x844): hamburger visible, drawer opens with 7 links (6 nav + CTA)",
+    "No horizontal overflow at desktop or mobile (scrollWidth - clientWidth = 0)",
+    "No console errors"
+  ],
+  "failed": [
+    {
+      "area": "Navbar scroll transition",
+      "issue": "Navbar background does not change after scrolling past 24px. Computed backgroundColor stays rgba(0,0,0,0) and backdropFilter stays 'none' at scrollY=400. Spec requires transparent -> dark blurred transition.",
+      "evidence": "page.evaluate before/after scrollTo(0,400): both returned 'rgba(0, 0, 0, 0)|none'. Class attribute on <nav> also unchanged.",
+      "priority": "HIGH"
+    },
+    {
+      "area": "Mobile drawer close",
+      "issue": "After 2nd toggle click, mobile drawer becomes opacity:0 but still has display:block and visibility:visible. Visually disappears but remains in the accessibility tree / hit-testable.",
+      "evidence": "Computed style after close: {display: block, transform: none, opacity: 0, visibility: visible}. Playwright is_visible() returns True.",
+      "priority": "LOW"
+    }
+  ],
+  "action_items": [
+    "Fix sticky navbar: add scroll listener (or framer-motion variant) to apply dark blurred background + backdrop-blur when window.scrollY > 24",
+    "When mobile drawer is closed, also set visibility:hidden (or pointer-events:none) in addition to opacity:0 so it is fully removed from interaction"
+  ],
+  "success_rate": {"backend": "n/a (frontend-only)", "frontend": "~94% (16/17 spec items pass; navbar scroll transition fails)"},
+  "retest_needed": true,
+  "full_testing_deferred": true
+}
