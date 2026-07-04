@@ -17,19 +17,41 @@ export const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const check = () => {
+      const y =
+        window.scrollY ||
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;
+      setScrolled(y > 24);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    document.addEventListener("scroll", check, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", check);
+      document.removeEventListener("scroll", check);
+    };
   }, []);
 
   return (
     <header
       data-testid="navbar"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "backdrop-blur-xl bg-black/55 border-b border-white/5" : "bg-transparent"
-      }`}
+      data-scrolled={scrolled ? "true" : "false"}
+      style={
+        scrolled
+          ? {
+              backgroundColor: "rgba(9, 9, 14, 0.72)",
+              backdropFilter: "blur(18px)",
+              WebkitBackdropFilter: "blur(18px)",
+              borderBottom: "1px solid rgba(255,255,255,0.06)",
+            }
+          : { backgroundColor: "transparent" }
+      }
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     >
+      {/* sentinel intentionally removed; relying on scroll event */}
       <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
         <Logo />
         <nav className="hidden lg:flex items-center gap-8">
@@ -66,8 +88,11 @@ export const Navbar = () => {
       {/* Mobile drawer */}
       <div
         data-testid="mobile-drawer"
+        aria-hidden={!open}
         className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-300 ${
-          open ? "max-h-[480px] opacity-100" : "max-h-0 opacity-0"
+          open
+            ? "max-h-[480px] opacity-100 visible pointer-events-auto"
+            : "max-h-0 opacity-0 invisible pointer-events-none"
         } bg-[#0b0b14]/95 backdrop-blur-xl border-b border-white/5`}
       >
         <div className="px-5 py-6 flex flex-col gap-4">
