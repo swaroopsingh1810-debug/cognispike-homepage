@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ChevronDown, Sparkles, ArrowRight } from "lucide-react";
 import { CAL_URL } from "@/lib/constants";
 
-const LOGOS = ["ACME", "NEXUS", "ORBIT", "PULSE", "VERTEX"];
+const LOGOS = ["Make.com", "n8n", "WAPI", "Retell AI", "OpenAI", "Zapier", "HubSpot"];
 
 export const Hero = () => {
   return (
@@ -94,13 +94,18 @@ export const Hero = () => {
             className="mt-14 w-full"
           >
             <p className="text-xs uppercase tracking-[0.28em] text-gray-500 mb-4">
-              Trusted by 50+ businesses across 12 industries
+              Built with the tools that power modern automation
             </p>
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-3 opacity-60">
+            <div className="flex flex-wrap items-center gap-2.5">
               {LOGOS.map((l) => (
                 <span
                   key={l}
-                  className="font-display text-base sm:text-lg text-gray-400 tracking-widest"
+                  data-testid={`tech-tag-${l.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                  className="font-display text-sm text-gray-300 px-3.5 py-1.5 rounded-full transition-colors"
+                  style={{
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(124, 58, 237, 0.28)",
+                  }}
                 >
                   {l}
                 </span>
