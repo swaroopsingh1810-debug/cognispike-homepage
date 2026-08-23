@@ -154,13 +154,13 @@
                 },
             });
         </script>
-    <!-- ================= START COGNISPIKE LEXA WIDGET ================= -->
+ <!-- ================= START COGNISPIKE LEXA WIDGET ================= -->
 <div id="lexa-widget-container" style="position: fixed; bottom: 24px; right: 24px; z-index: 2147483647; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column; align-items: flex-end;">
   
   <!-- Chat Popup Window -->
-  <div id="lexa-chat-box" style="display: none; width: 380px; height: 600px; max-height: calc(100vh - 110px); max-width: calc(100vw - 40px); background: #0F172A; border-radius: 16px; overflow: hidden; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); border: 1px solid #334155; margin-bottom: 12px; transition: all 0.2s ease-in-out;">
+  <div id="lexa-chat-box" style="display: none; width: 380px; height: 580px; max-height: calc(100vh - 100px); max-width: calc(100vw - 36px); background: #0F172A; border-radius: 16px; overflow: hidden; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); border: 1px solid #334155; margin-bottom: 12px;">
     <iframe
-      src="https://ais-pre-tgjn5lq2uzb7dngspdv6ig-223157241651.asia-east1.run.app/?mode=chat"
+      src="https://ais-pre-tgjn5lq2uzb7dngspdv6ig-223157241651.asia-east1.run.app/?mode=chat#chat"
       style="width: 100%; height: 100%; border: none;"
       allow="clipboard-write; microphone"
       title="Lexa AI Assistant"
@@ -171,15 +171,15 @@
   <button
     id="lexa-toggle-button"
     aria-label="Open Lexa Assistant"
-    style="width: 56px; height: 56px; border-radius: 28px; background: #0F172A; color: #10B981; border: 1.5px solid rgba(16, 185, 129, 0.3); cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); display: flex; align-items: center; justify-content: center; transition: transform 0.15s ease, background 0.15s ease;"
+    style="width: 56px; height: 56px; border-radius: 28px; background: #0F172A; color: #10B981; border: 1.5px solid rgba(16, 185, 129, 0.35); cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); display: flex; align-items: center; justify-content: center; transition: transform 0.15s ease;"
     onmouseover="this.style.transform='scale(1.05)';"
     onmouseout="this.style.transform='scale(1)';"
   >
-    <!-- Chat Icon (Default) -->
+    <!-- Chat Icon (Open) -->
     <svg id="lexa-icon-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
     </svg>
-    <!-- Close Icon (Hidden by default) -->
+    <!-- Close Icon -->
     <svg id="lexa-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
       <line x1="18" y1="6" x2="6" y2="18"></line>
       <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -189,14 +189,14 @@
 
 <script>
   (function() {
-    const btn = document.getElementById('lexa-toggle-button');
-    const box = document.getElementById('lexa-chat-box');
-    const openIcon = document.getElementById('lexa-icon-open');
-    const closeIcon = document.getElementById('lexa-icon-close');
+    var btn = document.getElementById('lexa-toggle-button');
+    var box = document.getElementById('lexa-chat-box');
+    var openIcon = document.getElementById('lexa-icon-open');
+    var closeIcon = document.getElementById('lexa-icon-close');
 
     if (btn && box) {
       btn.addEventListener('click', function() {
-        const isOpen = box.style.display === 'block';
+        var isOpen = box.style.display === 'block';
         box.style.display = isOpen ? 'none' : 'block';
         openIcon.style.display = isOpen ? 'none' : 'block';
         closeIcon.style.display = isOpen ? 'block' : 'none';
@@ -204,6 +204,6 @@
     }
   })();
 </script>
-<!-- ================= END COGNISPIKE LEXA WIDGET ================= -->    
+<!-- ================= END COGNISPIKE LEXA WIDGET ================= -->   
     </body>
 </html>
